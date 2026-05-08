@@ -63,7 +63,8 @@ const CreateProject = () => {
           width: "100%",
           maxWidth: "1200px",
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
+          gridTemplateColumns:
+  window.innerWidth < 768 ? "1fr" : "1fr 1fr",
           boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
         }}
       >

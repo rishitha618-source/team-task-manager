@@ -51,7 +51,8 @@ function Register() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
+          gridTemplateColumns:
+  window.innerWidth < 768 ? "1fr" : "1fr 1fr",
           background: "white",
           borderRadius: "32px",
           overflow: "hidden",
