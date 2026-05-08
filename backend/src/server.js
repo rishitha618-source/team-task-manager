@@ -13,7 +13,10 @@ const app = express();
 // Middlewares
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://team-task-manager-production-5cd2.up.railway.app",
+    ],
     credentials: true,
   })
 );
