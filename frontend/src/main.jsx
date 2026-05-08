@@ -1,3 +1,4 @@
+import CreateProject from "./pages/CreateProject"
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {
@@ -56,6 +57,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             </ProtectedRoute>
           }
         />
+
+        <Route path="/projects/new" element={<CreateProject />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

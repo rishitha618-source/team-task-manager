@@ -39,36 +39,61 @@ function Tasks() {
     return "text-red-500";
   };
 
+  const formatStatus = (status) => {
+    if (status === "IN_PROGRESS") {
+      return "In Progress";
+    }
+
+    if (status === "TODO") {
+      return "To Do";
+    }
+
+    return "Done";
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
 
       <div className="p-10">
-        <h1 className="text-4xl font-bold mb-8">
-          Tasks
-        </h1>
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <p className="text-blue-600 tracking-widest text-sm mb-2">
+              TASK MANAGEMENT
+            </p>
 
-        <div className="bg-white rounded-xl shadow overflow-hidden">
+            <h1 className="text-5xl font-bold text-gray-800">
+              Tasks Overview
+            </h1>
+
+            <p className="text-gray-500 mt-3 text-lg">
+              Manage assignments, monitor progress, and keep
+              track of deadlines.
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-3xl shadow-lg overflow-hidden border border-gray-200">
           <table className="w-full">
-            <thead className="bg-blue-600 text-white">
+            <thead className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
               <tr>
-                <th className="p-4 text-left">
+                <th className="p-5 text-left text-lg">
                   Title
                 </th>
 
-                <th className="p-4 text-left">
+                <th className="p-5 text-left text-lg">
                   Status
                 </th>
 
-                <th className="p-4 text-left">
+                <th className="p-5 text-left text-lg">
                   Assigned To
                 </th>
 
-                <th className="p-4 text-left">
+                <th className="p-5 text-left text-lg">
                   Project
                 </th>
 
-                <th className="p-4 text-left">
+                <th className="p-5 text-left text-lg">
                   Due Date
                 </th>
               </tr>
@@ -78,29 +103,29 @@ function Tasks() {
               {tasks.map((task) => (
                 <tr
                   key={task.id}
-                  className="border-b hover:bg-gray-50"
+                  className="border-b hover:bg-gray-50 transition"
                 >
-                  <td className="p-4 font-medium">
+                  <td className="p-5 font-semibold text-gray-800">
                     {task.title}
                   </td>
 
                   <td
-                    className={`p-4 font-semibold ${getStatusColor(
+                    className={`p-5 font-bold ${getStatusColor(
                       task.status
                     )}`}
                   >
-                    {task.status}
+                    {formatStatus(task.status)}
                   </td>
 
-                  <td className="p-4">
+                  <td className="p-5 text-gray-700">
                     {task.assignedTo?.name}
                   </td>
 
-                  <td className="p-4">
+                  <td className="p-5 text-gray-700">
                     {task.project?.title}
                   </td>
 
-                  <td className="p-4">
+                  <td className="p-5 text-gray-700">
                     {new Date(
                       task.dueDate
                     ).toLocaleDateString()}

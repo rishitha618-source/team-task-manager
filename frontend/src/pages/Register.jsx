@@ -36,70 +36,262 @@ function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-xl shadow-lg w-96"
+    <div
+      style={{
+        minHeight: "100vh",
+        background:
+          "linear-gradient(to right, #eff6ff, #eef2ff)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "40px",
+        fontFamily: "Arial",
+      }}
+    >
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          background: "white",
+          borderRadius: "32px",
+          overflow: "hidden",
+          maxWidth: "1200px",
+          width: "100%",
+          boxShadow: "0 10px 40px rgba(0,0,0,0.1)",
+        }}
       >
-        <h1 className="text-3xl font-bold mb-6 text-center">
-          Register
-        </h1>
-
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          className="w-full border p-3 rounded mb-4"
-          onChange={handleChange}
-        />
-
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          className="w-full border p-3 rounded mb-4"
-          onChange={handleChange}
-        />
-
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          className="w-full border p-3 rounded mb-4"
-          onChange={handleChange}
-        />
-
-        <select
-          name="role"
-          className="w-full border p-3 rounded mb-4"
-          onChange={handleChange}
+        {/* Left Side */}
+        <div
+          style={{
+            background:
+              "linear-gradient(to bottom right, #2563eb, #7c3aed)",
+            color: "white",
+            padding: "80px 60px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
         >
-          <option value="MEMBER">
-            MEMBER
-          </option>
-
-          <option value="ADMIN">
-            ADMIN
-          </option>
-        </select>
-
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white p-3 rounded"
-        >
-          Register
-        </button>
-
-        <p className="mt-4 text-center">
-          Already have an account?{" "}
-          <Link
-            to="/"
-            className="text-blue-600"
+          <p
+            style={{
+              letterSpacing: "4px",
+              marginBottom: "20px",
+              opacity: "0.8",
+            }}
           >
-            Login
-          </Link>
-        </p>
-      </form>
+            TEAM TASK MANAGER
+          </p>
+
+          <h1
+            style={{
+              fontSize: "64px",
+              lineHeight: "1.1",
+              marginBottom: "30px",
+            }}
+          >
+            Build and manage projects smarter.
+          </h1>
+
+          <p
+            style={{
+              fontSize: "22px",
+              lineHeight: "1.8",
+              opacity: "0.9",
+            }}
+          >
+            Collaborate with your team, organize workflows,
+            monitor tasks, and stay productive with a modern
+            project management experience.
+          </p>
+        </div>
+
+        {/* Right Side */}
+        <div
+          style={{
+            padding: "80px 60px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <h1
+            style={{
+              fontSize: "48px",
+              marginBottom: "15px",
+              color: "#111827",
+            }}
+          >
+            Create Account
+          </h1>
+
+          <p
+            style={{
+              color: "#6b7280",
+              marginBottom: "40px",
+              fontSize: "18px",
+            }}
+          >
+            Register to start managing projects and tasks.
+          </p>
+
+          <form onSubmit={handleSubmit}>
+            <div style={{ marginBottom: "22px" }}>
+              <label
+                style={{
+                  display: "block",
+                  marginBottom: "10px",
+                  fontWeight: "bold",
+                  color: "#374151",
+                }}
+              >
+                Full Name
+              </label>
+
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                onChange={handleChange}
+                required
+                style={{
+                  width: "100%",
+                  padding: "18px",
+                  borderRadius: "16px",
+                  border: "1px solid #d1d5db",
+                  fontSize: "16px",
+                }}
+              />
+            </div>
+
+            <div style={{ marginBottom: "22px" }}>
+              <label
+                style={{
+                  display: "block",
+                  marginBottom: "10px",
+                  fontWeight: "bold",
+                  color: "#374151",
+                }}
+              >
+                Email Address
+              </label>
+
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                onChange={handleChange}
+                required
+                style={{
+                  width: "100%",
+                  padding: "18px",
+                  borderRadius: "16px",
+                  border: "1px solid #d1d5db",
+                  fontSize: "16px",
+                }}
+              />
+            </div>
+
+            <div style={{ marginBottom: "22px" }}>
+              <label
+                style={{
+                  display: "block",
+                  marginBottom: "10px",
+                  fontWeight: "bold",
+                  color: "#374151",
+                }}
+              >
+                Password
+              </label>
+
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                onChange={handleChange}
+                required
+                style={{
+                  width: "100%",
+                  padding: "18px",
+                  borderRadius: "16px",
+                  border: "1px solid #d1d5db",
+                  fontSize: "16px",
+                }}
+              />
+            </div>
+
+            <div style={{ marginBottom: "35px" }}>
+              <label
+                style={{
+                  display: "block",
+                  marginBottom: "10px",
+                  fontWeight: "bold",
+                  color: "#374151",
+                }}
+              >
+                Role
+              </label>
+
+              <select
+                name="role"
+                onChange={handleChange}
+                style={{
+                  width: "100%",
+                  padding: "18px",
+                  borderRadius: "16px",
+                  border: "1px solid #d1d5db",
+                  fontSize: "16px",
+                }}
+              >
+                <option value="MEMBER">
+                  Member
+                </option>
+
+                <option value="ADMIN">
+                  Admin
+                </option>
+              </select>
+            </div>
+
+            <button
+              type="submit"
+              style={{
+                width: "100%",
+                padding: "18px",
+                borderRadius: "999px",
+                border: "none",
+                background:
+                  "linear-gradient(to right, #2563eb, #7c3aed)",
+                color: "white",
+                fontSize: "18px",
+                fontWeight: "bold",
+                cursor: "pointer",
+                marginBottom: "25px",
+              }}
+            >
+              Create Account
+            </button>
+          </form>
+
+          <p
+            style={{
+              textAlign: "center",
+              color: "#6b7280",
+            }}
+          >
+            Already have an account?{" "}
+            <Link
+              to="/"
+              style={{
+                color: "#2563eb",
+                fontWeight: "bold",
+                textDecoration: "none",
+              }}
+            >
+              Sign In
+            </Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

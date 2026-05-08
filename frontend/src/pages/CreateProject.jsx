@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import api from "../services/api";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-function Login() {
+const CreateProject = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    title: "",
+    description: "",
   });
 
   const handleChange = (e) => {
@@ -21,23 +21,25 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await api.post(
-        "/auth/login",
-        formData
+      const token = localStorage.getItem("token");
+
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/projects`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
-      localStorage.setItem(
-        "token",
-        response.data.token
-      );
+      alert("Project Created Successfully");
 
-      alert("Login Successful");
-
-      navigate("/dashboard");
+      navigate("/projects");
     } catch (error) {
       console.log(error);
 
-      alert("Login Failed");
+      alert("Failed to create project");
     }
   };
 
@@ -45,25 +47,24 @@ function Login() {
     <div
       style={{
         minHeight: "100vh",
-        background:
-          "linear-gradient(to right, #eff6ff, #eef2ff)",
+        background: "#f8fafc",
+        padding: "40px",
+        fontFamily: "Arial",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: "40px",
-        fontFamily: "Arial",
       }}
     >
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
           background: "white",
           borderRadius: "32px",
           overflow: "hidden",
-          maxWidth: "1200px",
           width: "100%",
-          boxShadow: "0 10px 40px rgba(0,0,0,0.1)",
+          maxWidth: "1200px",
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          boxShadow: "0 10px 40px rgba(0,0,0,0.08)",
         }}
       >
         {/* Left Side */}
@@ -78,24 +79,16 @@ function Login() {
             justifyContent: "center",
           }}
         >
-          <p
-            style={{
-              letterSpacing: "4px",
-              marginBottom: "20px",
-              opacity: "0.8",
-            }}
-          >
-            TEAM TASK MANAGER
-          </p>
+          
 
           <h1
             style={{
-              fontSize: "64px",
+              fontSize: "60px",
               lineHeight: "1.1",
               marginBottom: "30px",
             }}
           >
-            Organize work beautifully.
+            Create projects with clarity.
           </h1>
 
           <p
@@ -105,9 +98,9 @@ function Login() {
               opacity: "0.9",
             }}
           >
-            Manage projects, track tasks, monitor deadlines,
-            and collaborate efficiently with a modern task
-            management platform.
+            Organize workflows, manage deadlines, assign
+            responsibilities, and keep your team aligned from
+            one centralized workspace.
           </p>
         </div>
 
@@ -127,7 +120,7 @@ function Login() {
               color: "#111827",
             }}
           >
-            Welcome Back
+            New Project
           </h1>
 
           <p
@@ -137,8 +130,8 @@ function Login() {
               fontSize: "18px",
             }}
           >
-            Sign in to continue managing your projects and
-            tasks.
+            Create and manage projects efficiently with task
+            tracking and collaboration tools.
           </p>
 
           <form onSubmit={handleSubmit}>
@@ -151,13 +144,13 @@ function Login() {
                   color: "#374151",
                 }}
               >
-                Email Address
+                Project Title
               </label>
 
               <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
+                type="text"
+                name="title"
+                placeholder="Enter project title"
                 onChange={handleChange}
                 required
                 style={{
@@ -179,13 +172,13 @@ function Login() {
                   color: "#374151",
                 }}
               >
-                Password
+                Project Description
               </label>
 
-              <input
-                type="password"
-                name="password"
-                placeholder="Enter your password"
+              <textarea
+                name="description"
+                placeholder="Describe the project goals and objectives"
+                rows="6"
                 onChange={handleChange}
                 required
                 style={{
@@ -194,6 +187,7 @@ function Login() {
                   borderRadius: "16px",
                   border: "1px solid #d1d5db",
                   fontSize: "16px",
+                  resize: "none",
                 }}
               />
             </div>
@@ -211,35 +205,15 @@ function Login() {
                 fontSize: "18px",
                 fontWeight: "bold",
                 cursor: "pointer",
-                marginBottom: "25px",
               }}
             >
-              Sign In
+              Create Project
             </button>
           </form>
-
-          <p
-            style={{
-              textAlign: "center",
-              color: "#6b7280",
-            }}
-          >
-            Don’t have an account?{" "}
-            <Link
-              to="/register"
-              style={{
-                color: "#2563eb",
-                fontWeight: "bold",
-                textDecoration: "none",
-              }}
-            >
-              Create Account
-            </Link>
-          </p>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default Login;
+export default CreateProject;
