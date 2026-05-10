@@ -1,15 +1,20 @@
-const prisma = require("../prisma");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// REGISTER
-exports.register = async (req, res) => {
-  try {
-    const { name, email, password, role } = req.body;
+const { PrismaClient } = require("@prisma/client");
 
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    });
+const prisma = new PrismaClient();
+
+const register = async (req, res) => {
+  try {
+    const { username, email, password, role } =
+      req.body;
+
+    // Check if user already exists
+    const existingUser =
+      await prisma.user.findUnique({
+        where: { email },
+      });
 
     if (existingUser) {
       return res.status(400).json({
@@ -17,11 +22,16 @@ exports.register = async (req, res) => {
       });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // Hash password
+    const hashedPassword = await bcrypt.hash(
+      password,
+      10
+    );
 
+    // Create new user
     const user = await prisma.user.create({
       data: {
-        name,
+        username,
         email,
         password: hashedPassword,
         role,
@@ -29,7 +39,7 @@ exports.register = async (req, res) => {
     });
 
     res.status(201).json({
-      message: "User registered successfully",
+      message: "Registration successful",
       user,
     });
   } catch (error) {
@@ -41,11 +51,11 @@ exports.register = async (req, res) => {
   }
 };
 
-// LOGIN
-exports.login = async (req, res) => {
+const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    // Find user
     const user = await prisma.user.findUnique({
       where: { email },
     });
@@ -56,7 +66,11 @@ exports.login = async (req, res) => {
       });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    // Compare password
+    const isMatch = await bcrypt.compare(
+      password,
+      user.password
+    );
 
     if (!isMatch) {
       return res.status(400).json({
@@ -64,6 +78,7 @@ exports.login = async (req, res) => {
       });
     }
 
+    // Generate JWT token
     const token = jwt.sign(
       {
         id: user.id,
@@ -76,7 +91,6 @@ exports.login = async (req, res) => {
     );
 
     res.status(200).json({
-      message: "Login successful",
       token,
       user,
     });
@@ -87,4 +101,9 @@ exports.login = async (req, res) => {
       message: "Server Error",
     });
   }
+};
+
+module.exports = {
+  register,
+  login,
 };

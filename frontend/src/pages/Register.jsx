@@ -6,7 +6,7 @@ function Register() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
     role: "MEMBER",
@@ -29,9 +29,12 @@ function Register() {
 
       navigate("/");
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
 
-      alert("Registration Failed");
+      alert(
+        error.response?.data?.message ||
+          "Server Error"
+      );
     }
   };
 
@@ -52,7 +55,9 @@ function Register() {
         style={{
           display: "grid",
           gridTemplateColumns:
-  window.innerWidth < 768 ? "1fr" : "1fr 1fr",
+            window.innerWidth < 768
+              ? "1fr"
+              : "1fr 1fr",
           background: "white",
           borderRadius: "32px",
           overflow: "hidden",
@@ -73,19 +78,12 @@ function Register() {
             justifyContent: "center",
           }}
         >
-          <p
-            style={{
-              letterSpacing: "4px",
-              marginBottom: "20px",
-              opacity: "0.8",
-            }}
-          >
-            TEAM TASK MANAGER
-          </p>
-
           <h1
             style={{
-              fontSize: "64px",
+              fontSize:
+                window.innerWidth < 768
+                  ? "38px"
+                  : "64px",
               lineHeight: "1.1",
               marginBottom: "30px",
             }}
@@ -145,13 +143,13 @@ function Register() {
                   color: "#374151",
                 }}
               >
-                Full Name
+                Username
               </label>
 
               <input
                 type="text"
-                name="name"
-                placeholder="Enter your name"
+                name="username"
+                placeholder="Enter username"
                 onChange={handleChange}
                 required
                 style={{
