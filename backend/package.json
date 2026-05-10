@@ -9,7 +9,7 @@
   "postinstall": "prisma generate",
   "prisma:migrate": "prisma migrate dev",
   "prisma:generate": "prisma generate"
-}
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
